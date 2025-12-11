@@ -12,7 +12,18 @@ C_NODE* C_LIST::createNode(int nData)
 
 void C_LIST::linkNode(C_NODE* pPrev, C_NODE* pNext)
 {
+	
+}
 
+void C_LIST::insertNode(C_NODE* pPrev, C_NODE* pNode, C_NODE* pNext)
+{
+}
+
+void C_LIST::erase(C_NODE* pNode)
+{
+	linkNode(pNode->m_pPrev, pNode->m_pNext);
+	delete pNode;
+	pNode = nullptr;
 }
 
 C_LIST::C_LIST():
@@ -62,6 +73,17 @@ void C_LIST::popBack()
 
 void C_LIST::popFront()
 {
+}
+
+void C_LIST::remove(int nData)
+{
+	C_NODE* pNode = m_pBegin;
+	while (pNode != m_pEnd)
+	{
+		C_NODE* pNext = pNode->m_pNext;
+		erase(pNode);
+		pNode = pNext;
+	}
 }
 
 C_NODE* C_LIST::getBegin()
