@@ -56,6 +56,16 @@ C_BST::S_NODE* C_BST::eraseNodeF(S_NODE* pNode, int nData)
 	{
 		if (pNode->pL && pNode->pR)
 		{
+			S_NODE* pSuc = pNode->pR;
+			while (pSuc->pL != nullptr)
+			{
+				pSuc = pSuc->pL;
+			}
+
+			pNode->nData = pSuc->nData;
+
+			pNode->pR = eraseNodeF(pNode->pR, pSuc->nData);
+
 			return pNode;
 		}
 
@@ -66,6 +76,14 @@ C_BST::S_NODE* C_BST::eraseNodeF(S_NODE* pNode, int nData)
 		delete pNode;
 		return pRe;
 	}
+}
+
+C_BST::S_NODE* C_BST::getMaxNode(S_NODE* pNode)
+{
+	if (!pNode->pR)
+		return pNode;
+
+	return getMaxNode(pNode->pR);
 }
 
 bool C_BST::insert(int nData)
@@ -98,7 +116,24 @@ void C_BST::erase(int nData)
 	printf("find %d\n", pFind->nData);
 
 	if (pFind->pL && pFind->pR)
+	{
+		S_NODE* pMinUp = pFind;
+		S_NODE* pMinNode = pFind->pR;
+		while (pMinNode->pL)
+		{
+			pMinUp = pMinNode;
+			pMinNode = pMinNode->pL;
+		}
+
+		pFind->nData = pMinNode->nData;
+		pFind = pMinNode;
+		pUp = pMinUp;
+		// printf("min up %d , min %d\n", pMinUp->nData, pMinNode->nData);
+
+
 		return;
+	}
+
 
 	S_NODE* pRe = pFind->pL;
 	if (!pFind->pL && pFind->pR)

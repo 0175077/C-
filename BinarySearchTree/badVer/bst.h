@@ -19,6 +19,8 @@ private:
 	void printNode(S_NODE* pNode);
 	S_NODE* createNode(int nData);
 	S_NODE* insertNodef(S_NODE* pNode, int nData);
+	S_NODE* eraseNodeF(S_NODE* pNode, int nData);
+	S_NODE* getMaxNode(S_NODE* pNode);
 
 public:
 	C_BST() = default;
