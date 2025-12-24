@@ -23,5 +23,7 @@ void C_NUMBER_TABLE::setStrike(int nStrike)
 
 C_BASEBALL::E_RESULT C_NUMBER_TABLE::getResult(int nNumber)
 {
-	return C_BASEBALL::E_RESULT();
+	if (nNumber >= 0 && nNumber <= 9)
+		return m_arNumber[nNumber];
+	return C_BASEBALL::E_RESULT::E_NONE;
 }

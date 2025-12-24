@@ -50,25 +50,62 @@ void C_BASEBALL::init(int nTableCount)
 
 }
 
+bool C_BASEBALL::input()
+{
+    int arCheck[10]{};
+    bool arResult[10]{};
+
+    arResult[m_nTableCount] = true;
+
+    for (int i = 0; i < m_nTableCount; i++)
+    {
+        scanf_s("%d ", &m_arInput[i]);
+        arCheck[m_arInput[i]] = 1;
+    }
+
+    int nTotal{};
+    for (int i = 0; i < 10; i++)
+    {
+        nTotal += arCheck[i];
+    }
+
+    return arResult[nTotal];
+}
+
+bool C_BASEBALL::result()
+{
+    while (!input())
+    {
+        printf("다시 입력하세요\n");
+    }
+
+    int arResult[(int)E_RESULT::E_MAX]{};
+    for (int i = 0; i < m_nTableCount; i++)
+    {
+        arResult[(int)m_pTable[i].getResult(m_arInput[i])]++;
+    }
+
+    for (int i = 0; i < m_nTableCount; i++)
+    {
+        printf("%d ", arResult[i]);
+    }
+    // 스트라이크 갯수를 센다
+    // 출력한다
+    bool arCheck[10]{};
+    arCheck[m_nTableCount] = true;
+
+
+
+
+    return arCheck[arResult[(int)E_RESULT::E_STRIKE]];
+}
+
 void C_BASEBALL::run()
 {
-    int m_arUser[10]{};
-
-    for (int i = 0; i < m_nTableCount; i++)
+    while (!input())
     {
-        scanf_s("%d", &m_arUser[i]);
+        // 카운트를 센다
     }
-
-    for (int i = 0; i < m_nTableCount; i++)
-    {
-        E_RESULT eResult = m_pTable[i].getResult(m_arUser[i]);
-        if (eResult == E_RESULT::E_NONE)
-            printf("세팅안됨\n");
-        else if (eResult == E_RESULT::E_BALL)
-            printf("볼\n");
-        else if (eResult == E_RESULT::E_STRIKE)
-            printf("스트라이크\n");
-    }
-
 
 }
+
